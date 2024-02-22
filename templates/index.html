@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}Online C compiler{% endblock %}
+
+{% block content %}
+<form action="/submit" method="post" class="row">
+  <div class="col-md-6">
+    <div class="form-group">
+      <label for="code">Type your C code here:</label>
+      <textarea id="code" name="code" class="form-control code-mirror" rows="20" placeholder="// Enter your code here.">{{code}}</textarea>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="form-group">
+      <label for="output">Assembly output:</label>
+      <textarea id="output" name="output" class="form-control code-mirror" rows="20" placeholder="// Your output here.">{{output}}</textarea>
+    </div>
+  </div>
+  <div class="col-md-12">
+    <button type="submit" class="btn btn-primary">Compile Code</button>
+  </div>
+</form>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  // CodeMirror instance for C syntax highlighting
+  var editorCode = CodeMirror.fromTextArea(document.getElementById("code"), {
+    lineNumbers: true,
+    mode: "text/x-csrc",
+    theme: "darcula"
+  });
+  editorCode.setSize(500, 500);
+
+  // CodeMirror instance for ASM syntax highlighting
+  var editorOutput = CodeMirror.fromTextArea(document.getElementById("output"), {
+    lineNumbers: true,
+    mode: "text/x-asm",
+    theme: "darcula"
+  });
+  editorOutput.setSize(500, 500);
+</script>
+{% endblock %}
